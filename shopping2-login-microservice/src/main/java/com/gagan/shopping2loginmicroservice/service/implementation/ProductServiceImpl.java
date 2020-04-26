@@ -1,0 +1,40 @@
+package com.gagan.shopping2loginmicroservice.service.implementation;
+
+import com.gagan.shopping2loginmicroservice.model.Product;
+import com.gagan.shopping2loginmicroservice.service.ProductService;
+import javafx.print.Collation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * @author Gagandeep
+ * @date 26-04-2020
+ * @time 20:29
+ */
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+    @Value("${url.service.product}")
+    private String productServiceUrl;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Override
+    public List<Product> fetchAllProducts() {
+        List<Product> products = Arrays.asList(restTemplate.getForEntity(productServiceUrl + "/products", Product[].class).getBody());
+        return products;
+    }
+
+    @Override
+    public Product fetchById(Integer id) {
+        return null;
+    }
+}

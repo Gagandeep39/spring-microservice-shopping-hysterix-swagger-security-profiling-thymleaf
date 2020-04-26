@@ -7,6 +7,29 @@
 </head>
 <body>
 <div th:replace="/fragments/header :: navbar"></div>
-In progress
+<div class="container" style="margin: 20px">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <td>Product Name</td>
+            <td>Product Category</td>
+            <td>Product Price</td>
+            <td>Quantity</td>
+            <td>Add To Cart</td>
+        </tr>
+        </thead>
+        <tr th:each="tempProduct : ${products}">
+            <td th:text="${tempProduct.getProductDetails().getName()}"></td>
+            <td th:text="${tempProduct.getProductDetails().getCategory()}"></td>
+            <td th:text="${tempProduct.getProductDetails().getPrice()}"></td>
+            <td th:text="${tempProduct.getStock()}"></td>
+            <td>
+<!--                <form th:action="@{|/ShoppingCtrl/addtocart/${tempProduct.getProductId()}|}" method="post">-->
+<!--                    <button type="submit" class="btn btn-success">Add To Cart</button>-->
+<!--                </form>-->
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
