@@ -10,6 +10,7 @@ package com.gagan.shopping2loginmicroservice.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -43,11 +44,11 @@ public class User {
     @NotEmpty(message = "*Please provide your password")
     protected String username;
 
-
     @Column(name = "active", nullable = false)
     protected int active;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     protected Collection<Role> roles;
 

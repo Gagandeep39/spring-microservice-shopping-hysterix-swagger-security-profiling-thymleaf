@@ -7,6 +7,43 @@
 </head>
 <body>
 <div th:replace="/fragments/header :: navbar"></div>
-In progress
+<div class="container">
+    <h2 class="display-2">Cart Items</h2>
+    <a th:href="@{/ShoppingCtrl/checkout}" class="btn btn-success m-1">Check out</a>
+    <div th:if="${cart.getCartItems().size()<=0}">
+        <p class="display-4">Add Something to Cart...</p>
+    </div>
+    <div th:if="${cart.getCartItems().size()>0}">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Product Category</td>
+                <td>Product Price</td>
+                <td>Product Quantity</td>
+                <td>Remove From Cart</td>
+            </tr>
+            </thead>
+            <tr th:each="item : ${cart.getCartItems()}">
+                <td th:text="${item.getProductDetails().getName()}"></td>
+                <td th:text="${item.getProductDetails().getCategory()}"></td>
+                <td th:text="${item.getProductDetails().getPrice()}"></td>
+                <td th:text="${item.getQuantity()}"></td>
+                <td>
+                    <form th:action="@{|/ShoppingCartCtrl/remove/${item.getCartItemId()}|}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>Total: </td>
+                    <td th:text="'₹ ' + ${total}" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
 </body>
 </html>
