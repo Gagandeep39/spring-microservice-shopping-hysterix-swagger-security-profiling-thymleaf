@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"></div>
+
+<div class="container">
+<h2 class="display-2" th:text="Welcome"></h2>
+<hr>
+<h3>Customer Info</h3>
+<table class="table table-bordered">
+    <tr>
+        <td>Username</td>
+        <td th:text="${customer.getUsername()}"></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td th:text="${customer.getName()}"></td>
+    </tr>
+    <tr>
+        <td>Phone Number</td>
+        <td th:text="${customer.getPhoneNumber()}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="${customer.getEmail()}"></td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td th:text="${customer.getAddress()}"></td>
+    </tr>
+</table>
+<a th:href="@{/ShoppingCtrl/productcatalog}" class="btn btn-primary">Go to Shopping Page</a>
+<a th:href="@{/PurchaseCtrl/purchasehistory}" class="btn btn-success" style="margin-left: 4px">View Purchase History</a>
+<a th:href="@{/logout}" class="btn btn-danger" style="margin-left: 4px">Log Out</a>
+</div>
+</body>
+</html>

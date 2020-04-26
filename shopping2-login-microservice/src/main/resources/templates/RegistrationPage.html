@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>Registration</title>
+</head>
+<body class="container">
+<h2 class="display-2">Registration</h2>
+<hr>
+<div>
+
+    <!--Show this info message only if registered successfully-->
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+    <form th:action="@{/RegisterCtrl/register}" method="post" th:object="${customer}">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" id="username" th:field="*{username}" />
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert-danger"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password" th:field="*{password}" />
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert-danger"></p>
+        </div>
+
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" id="name" th:field="*{name}" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert-danger"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input class="form-control" type="number" id="phone" th:field="*{phoneNumber}" />
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="alert-danger"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="text" id="email" th:field="*{email}" />
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert-danger"></p>
+        </div>
+
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input class="form-control" type="text" id="address" th:field="*{address}" />
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="alert-danger"></p>
+        </div>
+
+        <input type="submit" value="Register" class="btn btn-primary">
+        <a th:href="@{/LoginCtrl/login}">Login</a>
+    </form>
+</div>
+</body>
+</html>
