@@ -181,3 +181,19 @@ Checkout cart with given ID
 
 ## POST localhost:4005/purchases/customer/{customerId}
 Fetch Purchase History By Customer
+
+# Swagger Docs
+
+Woks in the given sirvies \
+- Cart Service
+- Prduct Service 
+- Pirchase Service 
+
+## GET http://localhost:{port}/v2/api-docs
+
+Doccumentation in JSOn format
+
+## GET http://localhost:{port}/swagger-ui.html
+
+Documentation with a GUI 
+
