@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()   // disable Cross-Site Request Forgery protection
                 .authorizeRequests()
-//                .antMatchers("/home").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers(  "/RegisterCtrl/**", "/error", "/h2-console/**").permitAll()
                 .anyRequest()

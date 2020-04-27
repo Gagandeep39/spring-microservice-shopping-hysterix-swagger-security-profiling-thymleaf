@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"></div>
+<div class="container">
+    <h2 class="display-2">Hello, If you see this page, you are an Admin</h2>
+    <hr>
+    <p class="text-justify">
+        This is an Admin only page
+    </p>
+</div>
+</body>
+</html>
