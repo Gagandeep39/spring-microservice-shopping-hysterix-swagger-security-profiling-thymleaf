@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <div class="container">
     <div >
-        <h1>403 - Access is denied</h1>
-        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+        <h1 class="display-2">403 - Access is denied</h1>
+        <div class="text-justify" th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
             you do not have permission to access this page.
         </div>
     </div>
+    <br><a style="cursor: pointer" th:onclick="history.go(-1)">Back</a>
 </div>
 
 

@@ -33,9 +33,14 @@
         <td>Address</td>
         <td th:text="${customer.getAddress()}"></td>
     </tr>
+
+    <tr>
+<!--        <td>Roles</td>-->
+<!--        <td th:text="${customer.getRoles()}"></td>-->
+    </tr>
 </table>
 <a th:href="@{/ProductCatalogCtrl/productcatalog}" class="btn btn-primary">Go to Shopping Page</a>
-<a th:href="@{/PurchaseCtrl/purchasehistory}" class="btn btn-success" style="margin-left: 4px">View Purchase History</a>
+<a th:href="@{/PurchaseCtrl/purchase}" class="btn btn-success" style="margin-left: 4px">View Purchase History</a>
 <a th:href="@{/logout}" class="btn btn-danger" style="margin-left: 4px">Log Out</a>
 </div>
 </body>

@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
 </head>
-<body>
-An error has occured
+<body class="container">
+<h2 class="display-2">An error has occured</h2>
+
+<br><a style="cursor: pointer" th:onclick="history.go(-1)">Back</a>
 </body>
 </html>
