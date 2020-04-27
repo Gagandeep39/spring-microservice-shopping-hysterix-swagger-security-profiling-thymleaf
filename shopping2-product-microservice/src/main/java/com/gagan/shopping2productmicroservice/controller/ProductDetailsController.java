@@ -2,6 +2,9 @@ package com.gagan.shopping2productmicroservice.controller;
 
 import com.gagan.shopping2productmicroservice.model.ProductDetails;
 import com.gagan.shopping2productmicroservice.service.ProductDetailsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,18 +19,24 @@ import java.util.List;
  */
 
 @RestController
+@Api("Product Details Controller for managing crud ipeation")
 public class ProductDetailsController {
 
     @Autowired
     private ProductDetailsService productDetailsService;
 
     @GetMapping("/productdetails")
+    @ApiOperation(value = "Fettch All Product details")
     public List<ProductDetails> fetchAllProductDetails(){
         return productDetailsService.fetchAllProductDetails();
     }
 
-    @GetMapping("/productdetails/{id}")
-    public ProductDetails fetchProductDetailsById(@PathVariable Integer id){
+    @GetMapping("/productdetails/{id}")@ApiOperation(
+            value = "Fetch Details by ID",
+            notes = "Fetch details of a product based on ID")
+    public ProductDetails fetchProductDetailsById(
+            @ApiParam(value = "ID through which details will be fetched from repository", required = true)
+            @PathVariable Integer id){
         return productDetailsService.fetchById(id);
     }
 }

@@ -1,6 +1,8 @@
 package com.gagan.shopping2purchasemicroservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@ApiModel(value = "Cart Item - To store product detail that was added to cart")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

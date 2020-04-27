@@ -2,6 +2,9 @@ package com.gagan.shopping2productmicroservice.controller;
 
 import com.gagan.shopping2productmicroservice.model.Product;
 import com.gagan.shopping2productmicroservice.service.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,34 +19,50 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @time 19:47
  */
 @RestController
+@Api("Product Cntroller to manage product crud operation")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
+    @ApiOperation(value = "Fetch all products")
     public List<Product> fetchAllProducts(){
         return productService.fetchAllProducts();
     }
 
     @GetMapping("/products/{id}")
-    public Product fetchById(@PathVariable Integer id){
+    @ApiOperation(value = "Fetch products by ID")
+    public Product fetchById(
+            @ApiParam(value = "ID through which product will be fetched")
+            @PathVariable Integer id){
         return productService.fetchById(id);
     }
 
     @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product){
+    @ApiOperation(value = "Add product")
+    public Product addProduct(
+            @ApiParam(value = "Produt to be added")
+            @RequestBody Product product){
         productService.addProduct(product);
         return product;
     }
 
     @GetMapping("/products/category/{category}")
-    public List<Product> fetchProductByCategory(@PathVariable String category){
+    @ApiOperation(value = "Fetch products by category")
+    public List<Product> fetchProductByCategory(
+            @ApiParam(value = "Cartegory by which products will be fetched")
+            @PathVariable String category){
         return productService.fetchByCategory(category);
     }
 
     @PutMapping(value="/products/stock/{productId}/{quantity}")
-    public Product updateStocks(@PathVariable Integer productId, @PathVariable Integer quantity) throws Exception {
+    @ApiOperation(value = "Update product quuantity")
+    public Product updateStocks(
+            @ApiParam(value = "Produc ID whose stcks are to be updated")
+            @PathVariable Integer productId,
+            @ApiParam(value = "Amount by which the stovks will be replaced")
+            @PathVariable Integer quantity) throws Exception {
         Product product = productService.updateStocks(productId, quantity);
         return product;
     }
