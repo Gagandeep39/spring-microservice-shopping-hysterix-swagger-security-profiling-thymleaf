@@ -12,7 +12,17 @@
         <thead>
         <tr>
             <td>Product Name</td>
-            <td>Product Category</td>
+        <td>
+            <form class="row" action="#" th:action="@{/ProductCatalogCtrl/select}" th:object="${productcategory}" method="post">
+                <div class="form-group" style="margin-left: 12px">
+                    <select class="form-control" th:field="*{content}">
+                        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}" th:selected="${cat}">
+                        </option>
+                    </select>
+                </div>
+                <p><input type="submit" value="Submit" class="btn btn-success" style="margin-left: 4px"/>
+            </form>
+        </td>
             <td>Product Price</td>
             <td>Quantity</td>
             <td>Add To Cart</td>
@@ -21,7 +31,7 @@
         <tr th:each="tempProduct : ${products}">
             <td th:text="${tempProduct.getProductDetails().getName()}"></td>
             <td th:text="${tempProduct.getProductDetails().getCategory()}"></td>
-            <td th:text="${tempProduct.getProductDetails().getPrice()}"></td>
+            <td th:text="${'₹ ' + tempProduct.getProductDetails().getPrice()}"></td>
             <td th:text="${tempProduct.getStock()}"></td>
             <td>
                 <form th:action="@{|/ProductCatalogCtrl/productcatalog/${tempProduct.getId()}|}" method="post">

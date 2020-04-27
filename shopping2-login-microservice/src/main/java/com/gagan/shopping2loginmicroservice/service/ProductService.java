@@ -13,5 +13,6 @@ public interface ProductService {
 
     public List<Product> fetchAllProducts();
     public Product fetchById(Integer id);
+    List<Product> searchByCategory(String category);
 
 }

@@ -37,4 +37,10 @@ public class ProductServiceImpl implements ProductService {
     public Product fetchById(Integer id) {
         return null;
     }
+
+    @Override
+    public List<Product> searchByCategory(String category) {
+        List<Product> products = Arrays.asList(restTemplate.getForEntity( productServiceUrl + "/products/category/" + category, Product[].class).getBody());
+        return products;
+    }
 }
