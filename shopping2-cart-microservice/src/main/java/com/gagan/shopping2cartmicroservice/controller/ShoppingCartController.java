@@ -5,6 +5,10 @@ import com.gagan.shopping2cartmicroservice.model.ShoppingCart;
 import com.gagan.shopping2cartmicroservice.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 /**
  * @author Gagandeep
@@ -45,6 +49,12 @@ public class ShoppingCartController {
     public ShoppingCart getLatestCart(@PathVariable Integer customerId){
         ShoppingCart shoppingCart = shoppingCartService.getLatestCartOrCreate(customerId);
         return shoppingCart;
+    }
+
+    @PutMapping(value="/shoppingcart/{cartId}/{status}")
+    public String putMethodName(@PathVariable Integer cartId, @PathVariable String status) {
+        shoppingCartService.updateStatus(cartId, status);
+        return "Updated";
     }
 
 }

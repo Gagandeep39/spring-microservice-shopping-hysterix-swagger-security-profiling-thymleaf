@@ -19,5 +19,6 @@ public interface ShoppingCartService {
     public List<ShoppingCart> fetchAllUserCart(Integer userId);
     public ShoppingCart getLatestCartOrCreate(Integer customerId);
     public ShoppingCart fetchCartById(Integer cartId);
+	public void updateStatus(Integer cartId, String status);
 
 }

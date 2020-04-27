@@ -18,6 +18,7 @@ import java.util.List;
  * @author Gagandeep
  * @date 26-04-2020
  * @time 22:59
+ * @apiNote This is a Shopping Cart Service that manages opeartion with database 
  */
 
 @Service
@@ -98,5 +99,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart fetchCartById(Integer cartId) {
         return shoppingCartRepository.findById(cartId).get();
+    }
+
+    @Override
+    public void updateStatus(Integer cartId, String status) {
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(cartId).get();
+        shoppingCart.setStatus(status);
+        shoppingCartRepository.save(shoppingCart);
+
     }
 }
