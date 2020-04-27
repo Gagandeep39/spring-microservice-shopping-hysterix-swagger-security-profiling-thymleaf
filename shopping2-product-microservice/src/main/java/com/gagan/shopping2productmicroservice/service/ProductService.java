@@ -18,4 +18,5 @@ public interface ProductService {
     public Product fetchById(Integer id);
     public List<Product> fetchByCategory(String category);
     public Product addProduct(Product product);
+    public Product updateStocks(Integer productId, Integer productQuantity) throws Exception;
 }

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 /**
  * @author Gagandeep
@@ -28,14 +31,21 @@ public class ProductController {
         return productService.fetchById(id);
     }
 
-    @PostMapping("products")
+    @PostMapping("/products")
     public Product addProduct(@RequestBody Product product){
         productService.addProduct(product);
         return product;
     }
 
-    @GetMapping("products/category/{category}")
+    @GetMapping("/products/category/{category}")
     public List<Product> fetchProductByCategory(@PathVariable String category){
         return productService.fetchByCategory(category);
     }
+
+    @PutMapping(value="/products/stock/{productId}/{quantity}")
+    public Product updateStocks(@PathVariable Integer productId, @PathVariable Integer quantity) throws Exception {
+        Product product = productService.updateStocks(productId, quantity);
+        return product;
+    }
+    
 }

@@ -45,4 +45,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         return product;
     }
+
+	@Override
+	public Product updateStocks(Integer productId, Integer productQuantity) throws Exception {
+        Product product = productRepository.findById(productId).get();
+        if(product.getStock() < productQuantity) throw new Exception("Product Out of Stock");
+        product.setStock(product.getStock() - productQuantity);
+        productRepository.save(product);
+		return product;
+	}
 }
