@@ -9,7 +9,7 @@
 <div th:replace="/fragments/header :: navbar"></div>
 <div class="container">
     <h2 class="display-2">Cart Items</h2>
-    <a th:href="@{/ShoppingCtrl/checkout}" class="btn btn-success m-1">Check out</a>
+    <a th:href="@{/PurchaseCtrl/checkout}" class="btn btn-success m-1">Check out</a>
     <div th:if="${cart.getCartItems().size()<=0}">
         <p class="display-4">Add Something to Cart...</p>
     </div>
