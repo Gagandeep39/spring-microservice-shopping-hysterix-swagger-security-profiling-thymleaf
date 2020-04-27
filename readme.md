@@ -45,6 +45,10 @@ Response
 }
 '''
 
+### PUT localhost:4004/products/stock/{productId}/{quantity}
+
+Update Stocks\
+
 # Login Service
 
 ### GET localhost:4001
@@ -169,3 +173,11 @@ Success
 
 ## DELETE localhost:4003/shoppingcartitem/{cartId}/{cartItemId}
 Delte an Item in cart
+
+# Purchase Service 
+
+## POST http://localhost:4005/purchases/{cartId}
+Checkout cart with given ID
+
+## POST localhost:4005/purchases/customer/{customerId}
+Fetch Purchase History By Customer
