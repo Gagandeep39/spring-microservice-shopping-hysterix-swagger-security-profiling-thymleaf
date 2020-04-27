@@ -1,13 +1,17 @@
 package com.gagan.shopping2loginmicroservice.service.implementation;
 
+import com.gagan.shopping2loginmicroservice.model.CartItem;
+import com.gagan.shopping2loginmicroservice.model.ProductDetails;
 import com.gagan.shopping2loginmicroservice.model.Purchase;
 import com.gagan.shopping2loginmicroservice.model.ShoppingCart;
 import com.gagan.shopping2loginmicroservice.service.PurchaseService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Value("${url.service.purchase}")
     private String purchaseUrl;
 
+    @Autowired
+    private CircuitBreakerService circuitBreakerService;
+
     @Override
     public Purchase createPurchase(ShoppingCart shoppingCart) {
         Purchase purchase = restTemplate.postForObject( purchaseUrl+"/purchases/" + shoppingCart.getCartId(), "", Purchase.class);
@@ -33,7 +40,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<Purchase> fetchAllCustomerPurchase(Integer customerId) {
-        List<Purchase> purchases = Arrays.asList(restTemplate.getForEntity( purchaseUrl+ "/purchases/customer/" + customerId, Purchase[].class).getBody());
+        List<Purchase> purchases = circuitBreakerService.fetchCustomerFromPurchaseService(customerId);
         return purchases;
     }
+
 }

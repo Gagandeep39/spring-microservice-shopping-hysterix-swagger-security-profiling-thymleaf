@@ -1,13 +1,16 @@
 package com.gagan.shopping2loginmicroservice.service.implementation;
 
 import com.gagan.shopping2loginmicroservice.model.Product;
+import com.gagan.shopping2loginmicroservice.model.ProductDetails;
 import com.gagan.shopping2loginmicroservice.service.ProductService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import javafx.print.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -27,11 +30,16 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private CircuitBreakerService circuitBreakerService;
+
     @Override
     public List<Product> fetchAllProducts() {
-        List<Product> products = Arrays.asList(restTemplate.getForEntity(productServiceUrl + "/products", Product[].class).getBody());
+        List<Product> products = circuitBreakerService.fetchProductsFromService();
         return products;
     }
+
+
 
     @Override
     public Product fetchById(Integer id) {

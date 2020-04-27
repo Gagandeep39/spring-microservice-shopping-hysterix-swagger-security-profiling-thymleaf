@@ -21,6 +21,9 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private CircuitBreakerService circuitBreakerService;
+
     @Value("${url.service.cart}")
     private String cartServiceUrl;
 
@@ -43,7 +46,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ShoppingCart createOrFetchCart(Integer customerId) {
-        ShoppingCart shoppingCart = restTemplate.postForObject(cartServiceUrl + "/shoppingcart/" + customerId, "", ShoppingCart.class);
+        ShoppingCart shoppingCart = circuitBreakerService.fetchShoppingCart(customerId);
         return shoppingCart;
     }
 }

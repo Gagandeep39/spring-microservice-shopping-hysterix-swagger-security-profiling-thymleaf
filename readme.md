@@ -197,3 +197,11 @@ Doccumentation in JSOn format
 
 Documentation with a GUI 
 
+# Hystrix
+
+- NOTE: Always run page with fallback command before starting hystrix dashboard
+
+## Dashboar URL http://localhost:4001/hystrix
+
+## Test Hystrix on App http://localhost:4001/actuator/hystrix.stream
+
