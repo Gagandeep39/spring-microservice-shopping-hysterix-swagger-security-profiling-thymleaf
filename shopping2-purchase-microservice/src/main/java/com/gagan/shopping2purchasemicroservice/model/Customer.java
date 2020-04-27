@@ -7,6 +7,8 @@
  */
 package com.gagan.shopping2purchasemicroservice.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,26 +31,31 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @ToString
+@ApiModel(value = "Customer - Stores USer information")
 public class Customer extends User {
 
     @Column(name = "name")
     @Length(min = 5, message = "*Your username must have at least 5 characters")
     @NotEmpty(message = "*Please provide a name")
+    @ApiModelProperty(value = "Custmer Name")
     private String name;
 
     @Column(name = "address")
     @Length(min = 5, message = "*Your username must have at least 5 characters")
     @NotEmpty(message = "*Please provide an address")
+    @ApiModelProperty(value = "Customer Address")
     private String address;
 
     @Column(name = "email")
     @Email(message = "Enter a Valid Email")
     @NotEmpty(message = "*Please provide an email")
+    @ApiModelProperty(value = "Customer Email")
     private String email;
 
     @Column(name = "phone_number")
     @Length(min = 10, message = "*Your username must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
+    @ApiModelProperty(value = "Customer Phone number")
     private String phoneNumber;
 
 }
