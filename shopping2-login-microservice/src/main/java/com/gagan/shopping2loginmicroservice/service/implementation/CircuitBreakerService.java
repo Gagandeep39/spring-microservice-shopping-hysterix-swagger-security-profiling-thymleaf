@@ -15,6 +15,9 @@ import java.util.List;
  * @author Gagandeep
  * @date 27-04-2020
  * @time 19:50
+ * Creatig an extra service for fallback method allowed hystrix fallback to work
+ * Fallback methods werent working in Service Impl Classes
+ * ****ASK sir why is it so
  */
 
 @Service

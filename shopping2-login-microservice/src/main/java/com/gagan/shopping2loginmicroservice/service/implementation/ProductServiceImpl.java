@@ -46,6 +46,9 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    /**
+     * Add circuit breaker  ethod
+     */
     @Override
     public List<Product> searchByCategory(String category) {
         List<Product> products = Arrays.asList(restTemplate.getForEntity( productServiceUrl + "/products/category/" + category, Product[].class).getBody());

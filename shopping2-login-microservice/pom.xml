@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <!-- Eureka Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
         <!-- Actuator to expose hystrix endpoint and other endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
