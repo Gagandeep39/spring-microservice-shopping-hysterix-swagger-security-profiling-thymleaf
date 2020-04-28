@@ -13,6 +13,8 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Collection;
@@ -27,6 +29,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
+@ToString
 public class User {
 
     @Id
