@@ -32,11 +32,21 @@
             <td th:text="${tempProduct.getProductDetails().getName()}"></td>
             <td th:text="${tempProduct.getProductDetails().getCategory()}"></td>
             <td th:text="${'₹ ' + tempProduct.getProductDetails().getPrice()}"></td>
-            <td th:text="${tempProduct.getStock()}"></td>
+            <td >
+                <th:block th:if="${tempProduct.getStock()>0}">
+                    <p th:text="${tempProduct.getStock()}"></p>
+                </th:block>
+
+                <th:block th:if="${tempProduct.getStock()<=0}">
+                    <p th:text="${'Out of Stock'}"></p>
+                </th:block>
+            </td>
             <td>
-                <form th:action="@{|/ProductCatalogCtrl/productcatalog/${tempProduct.getId()}|}" method="post">
-                    <button type="submit" class="btn btn-success">Add To Cart</button>
-                </form>
+                <th:block th:if="${tempProduct.getStock()>0}">
+                    <form th:action="@{|/ProductCatalogCtrl/productcatalog/${tempProduct.getId()}|}" method="post">
+                        <button type="submit" class="btn btn-success">Add To Cart</button>
+                    </form>
+                </th:block>
             </td>
         </tr>
     </table>

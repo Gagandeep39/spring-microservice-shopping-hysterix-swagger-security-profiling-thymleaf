@@ -30,9 +30,14 @@
                 <td th:text="${item.getProductDetails().getPrice()}"></td>
                 <td th:text="${item.getQuantity()}"></td>
                 <td>
-                    <form th:action="@{|/ShoppingCartCtrl/remove/${item.getCartItemId()}|}" method="post">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <th:block th:if="${item.getQuantity()>0}">
+                        <form th:action="@{|/ShoppingCartCtrl/remove/${item.getCartItemId()}|}" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </th:block>
+                    <th:block th:if="${item.getQuantity()<=0}">
+                        <p th:text="${'Out of Stock'}"></p>
+                    </th:block>
                 </td>
             </tr>
             <tfoot>
