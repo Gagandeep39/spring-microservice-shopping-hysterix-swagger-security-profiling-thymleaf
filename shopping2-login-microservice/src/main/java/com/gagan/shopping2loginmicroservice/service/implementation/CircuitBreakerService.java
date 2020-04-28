@@ -98,4 +98,51 @@ public class CircuitBreakerService {
         shoppingCart.setCartItems(cartItems);
         return shoppingCart;
     }
+
+    @HystrixCommand(fallbackMethod = "fallBackFetchProductByCategory")
+    public List<Product> fetchProductsFromServiceByCategory(String category) {
+        List<Product> products = Arrays.asList(restTemplate.getForEntity( productServiceUrl + "/products/category/" + category, Product[].class).getBody());
+        return products;
+    }
+
+    public List<Product> fallBackFetchProductByCategory(String category) {
+        return fetchProductFallBackMethod();
+    }
+
+    @HystrixCommand(fallbackMethod = "fallBackMakeNewPurchase")
+    public Purchase makeNewPurchase(ShoppingCart shoppingCart) {
+        Purchase purchase = restTemplate.postForObject( purchaseUrl+"/purchases/" + shoppingCart.getCartId(), "", Purchase.class);
+        return purchase;
+    }
+
+    public Purchase fallBackMakeNewPurchase(ShoppingCart shoppingCart) {
+        Purchase purchase = new Purchase();
+        purchase.setShoppingCart(getShoppingCart());
+        purchase.setTimestamp(System.currentTimeMillis());
+        purchase.setTotal(0);
+        purchase.setPurchaseId(0);
+        return purchase;
+    }
+
+
+    @HystrixCommand(fallbackMethod = "fallBackSaveItemToCart")
+    public ShoppingCart saveItemToCart(CartItem cartItem, Integer cartId) {
+        ShoppingCart shoppingCart = restTemplate.postForObject(cartServiceUrl + "/shoppingcartitem/" + cartId, cartItem, ShoppingCart.class);
+        return shoppingCart;
+    }
+
+    public ShoppingCart fallBackSaveItemToCart(CartItem cartItem, Integer cartId) {
+        return getShoppingCart();
+    }
+
+
+    @HystrixCommand(fallbackMethod = "fallBackDeleteFromCart")
+    public ShoppingCart deleteItemFromCart(Integer cartId, Integer cartItemId) {
+        restTemplate.delete(cartServiceUrl + "/shoppingcartitem/"  +cartId + "/"+ cartItemId);
+        return null;
+    }
+
+    public ShoppingCart fallBackDeleteFromCart(Integer cartId, Integer cartItemId) {
+        return getShoppingCart();
+    }
 }

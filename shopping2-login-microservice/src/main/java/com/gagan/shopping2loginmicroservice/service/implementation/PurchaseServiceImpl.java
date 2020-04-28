@@ -34,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase createPurchase(ShoppingCart shoppingCart) {
-        Purchase purchase = restTemplate.postForObject( purchaseUrl+"/purchases/" + shoppingCart.getCartId(), "", Purchase.class);
+        Purchase purchase = circuitBreakerService.makeNewPurchase(shoppingCart);
         return purchase;
     }
 

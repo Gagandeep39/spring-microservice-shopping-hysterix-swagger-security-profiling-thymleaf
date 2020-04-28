@@ -34,14 +34,14 @@ public class CartServiceImpl implements CartService {
         CartItem cartItem = new CartItem();
         cartItem.setQuantity(1);
         cartItem.setProductDetails(productDetails);
-        ShoppingCart shoppingCart = restTemplate.postForObject(cartServiceUrl + "/shoppingcartitem/" + cartId, cartItem, ShoppingCart.class);
+        ShoppingCart shoppingCart = circuitBreakerService.saveItemToCart(cartItem, cartId);
         return shoppingCart;
     }
 
     @Override
     public ShoppingCart removeItemFromCart(Integer cartId, Integer cartItemId) {
-        restTemplate.delete(cartServiceUrl + "/shoppingcartitem/"  +cartId + "/"+ cartItemId);
-        return null;
+        ShoppingCart shoppingCart = circuitBreakerService.deleteItemFromCart(cartId, cartItemId);
+        return shoppingCart;
     }
 
     @Override
