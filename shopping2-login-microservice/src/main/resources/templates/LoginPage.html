@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <title>Login</title>
+    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+    <!-- Bootstrap support -->
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $.get("/user", function (data) {
+            $("#user").html(data.name);
+            $(".unauthenticated").hide()
+            $(".authenticated").show()
+        });
+        // Log out script
+        var logout = function () {
+            $.post("/logout", function () {
+                $("#user").html('');
+                $(".unauthenticated").show();
+                $(".authenticated").hide();
+            })
+            return true;
+        }
+        // CSRF Support when using Angular
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (settings.type == 'POST' || settings.type == 'PUT'
+                    || settings.type == 'DELETE') {
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                        .test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-XSRF-TOKEN",
+                            Cookies.get('XSRF-TOKEN'));
+                    }
+                }
+            }
+        });
+    </script>
+
 </head>
 <body class="container">
 <h2 class="display-2">Login</h2>
@@ -33,5 +69,12 @@
             <a th:href="@{/RegisterCtrl/register/user}">Register</a>
         </form>
     </div>
+<hr>
+<div>
+    <div>
+        <a class="btn btn-success" href="/oauth2/authorization/github">Login In With Github</a>
+    </div>
+</div>
+<hr>
 </body>
 </html>

@@ -41,4 +41,11 @@ public class UserServiceImpl implements UserService {
         customer.setRoles(Collections.singletonList(roleRepository.findByRole("ROLE_USER")));
         customerRepository.save(customer);
     }
+
+    @Override
+    public Optional<Customer> checkForOAuthAccount(String username) {
+        return customerRepository.findCustomerByUsername(username);
+    }
+
+
 }

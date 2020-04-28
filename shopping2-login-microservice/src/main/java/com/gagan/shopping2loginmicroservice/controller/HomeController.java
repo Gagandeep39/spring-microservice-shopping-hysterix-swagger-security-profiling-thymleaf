@@ -1,6 +1,7 @@
 package com.gagan.shopping2loginmicroservice.controller;
 
 import com.gagan.shopping2loginmicroservice.model.Customer;
+import com.gagan.shopping2loginmicroservice.model.User;
 import com.gagan.shopping2loginmicroservice.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Optional;
 
 /**
  * @author Gagandeep
@@ -35,10 +37,19 @@ public class HomeController {
     public Customer customer;
 
     @GetMapping("/")
-    public String indexPage(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", authentication.getName());
-        return "AuthenticatingPage";
+    public String indexPage(Model model, Principal principal){
+        if (principal!=null){
+            Optional<Customer> customerObject = userService.checkForOAuthAccount(principal.getName());
+            if (!customerObject.isPresent()){
+                Customer customer = new Customer();
+                customer.setUsername(principal.getName());
+                customer.setPassword(principal.getName());
+                model.addAttribute("customer", customer);
+                return "/RegistrationPage";
+            }
+            return "/AuthenticatingPage";
+        }
+        return "redirect:/LoginCtrl/login";
     }
 
     @GetMapping("/home")
