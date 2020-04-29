@@ -30,12 +30,19 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
+    @Autowired
+    private CircuitBreakerService circuitBreakerService;
+
+    @Autowired
+    private Purchase dummyPurchase;
+
     @Override
     public Purchase makePurchase(Integer shopingCartId) throws Exception {
-        ShoppingCart shoppingCart = restTemplate.getForObject(cartUrl +"/shoppingcart/" + shopingCartId, ShoppingCart.class);
+        ShoppingCart shoppingCart = circuitBreakerService.fetchShoppingCart(shopingCartId);
         if (shoppingCart==null) throw new Exception("Shopping Cart Not Found");
         if (shoppingCart.getStatus().equals("Completed"))
             throw new Exception("Already Checked Out");
+        if(shoppingCart.getCartId()==0) return dummyPurchase;
         validateQuantity(shoppingCart.getCartItems());
 
         int amount = 0;
@@ -50,7 +57,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setTimestamp(System.currentTimeMillis());
         purchase.setTotal(amount);
         purchase.setPurchaseId(shoppingCart.getCartId());
-        restTemplate.put(cartUrl+ "/shoppingcart/" +shoppingCart.getCartId()+"/" + "Completed", "");
+
+        String status = circuitBreakerService.updateCartStatus(shoppingCart.getCartId());
+        // Returning dummy object on service npt responding
+        if(status.equals("Error")) return dummyPurchase;
         purchaseRepository.save(purchase);
         return purchase;
     }
