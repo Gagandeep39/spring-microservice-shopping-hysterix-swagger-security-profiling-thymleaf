@@ -48,12 +48,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
         </dependency>
-        <!--  ALL ABIVE DEPENDENCIES ARE FOR AUTH 2  -->
-        <!-- Eureka Client -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
         <!-- Actuator to expose hystrix endpoint and other endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

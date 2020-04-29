@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @SpringBootApplication
 @EnableCircuitBreaker
 @EnableHystrixDashboard
-@EnableEurekaClient
 public class Shopping2LoginMicroserviceApplication {
 
     public static void main(String[] args) {
